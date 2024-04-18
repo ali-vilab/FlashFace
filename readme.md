@@ -79,7 +79,7 @@ You can do the inference with the [**notebook demo**](flashface/all_finetune/inf
 python flashface/all_finetune/demo_gradio.py
 ```
 
-## Acknowledgements
+## Acknowledgement
 
 Inspired from many excellent demos and repos related to human image customization, including [IP-Adapter](https://github.com/tencent-ailab/IP-Adapter), [multimodalart/Ip-Adapter-FaceID](https://huggingface.co/spaces/multimodalart/Ip-Adapter-FaceID), [FastComposer](https://github.com/mit-han-lab/fastcomposer), [T2I-Adapter](https://github.com/TencentARC/T2I-Adapter), [PhotoMaker](https://github.dev/TencentARC/PhotoMaker) and [InstantID](https://github.com/InstantID/InstantID). Thanks for their great work!
 
