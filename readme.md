@@ -63,7 +63,7 @@ You can download the weights from the ModelScope or Huggingface.
 
 ### ModelScope
 
-link: [ModelScope-FlashFace](https://www.modelscope.cn/models/iic/FlashFace/)
+link: [ModelScope-FlashFace](https://www.modelscope.cn/models/iic/FlashFace/summary)
 
 ### Huggingface
 
