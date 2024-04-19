@@ -1,21 +1,31 @@
 <p align="center">
-    <img src="figs/Logo2.png" width="20%", style="vertical-align: middle; margin-right: 0px; position: relative; top: 40px;"> <br>
-      <p align="center"  style="font-size:1.5vw;">FlashFace: Human Image Personalization with High-fidelity Identity Preservation </p>
+    <img src="figs/Logo2.png" width="30%", style="vertical-align: middle; margin-right: 0px; position: relative; top: 50px;"> <br>
+
 </p>
 
+<div align="center">
+
+## FlashFace: Human Image Personalization with High-fidelity Identity Preservation
+</div> 
 <!-- ## <center>🔥[**Online Demo**](<>)🔥    🔥[**Project Page**](https://jshilong.github.io/flashface-page/)🔥 </center> -->
 
-##   [**Project Page**](https://jshilong.github.io/flashface-page/) </center>
+##   [**Project Page**](https://jshilong.github.io/flashface-page/) 
 
 
 ## Feature
 
 1. Zero-shot human image customization within seconds with one or several reference faces.
 2. Strong identity preservation ability, even for non-celebrities
-3. Strong language prompt following ability, even change the age or gender of the person.
+3. Strong language prompts following ability, even changing the age or gender of the person.
 4. Flexible strength adjustment for identity image control and language prompt control.
 
 ## Updates
+
+<p align="center">
+<img src="https://github.com/jshilong/flashface-page/blob/main/static/githubfigs/flashface.gif" width="100%"> <br>
+
+
+</p>
 
 - \[April 18\] Inference code of **FlashFace-SD1.5** are released.
 
