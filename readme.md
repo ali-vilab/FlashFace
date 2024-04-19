@@ -1,7 +1,9 @@
 <p align="center">
-    <img src="figs/Logo2.png" width="20%", style="vertical-align: middle; margin-right: 0px; position: relative; top: 40px;"> <br>
-      <p align="center"  style="font-size:1.5vw;">FlashFace: Human Image Personalization with High-fidelity Identity Preservation </p>
+    <img src="figs/Logo2.png" width="25%", style="vertical-align: middle; margin-right: 0px; position: relative; top: 50px;"> <br>
 </p>
+
+## <center> FlashFace: Human Image Personalization with High-fidelity Identity Preservation <center>
+
 
 <!-- ## <center>🔥[**Online Demo**](<>)🔥    🔥[**Project Page**](https://jshilong.github.io/flashface-page/)🔥 </center> -->
 
