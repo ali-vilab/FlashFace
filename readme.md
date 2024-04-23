@@ -79,7 +79,7 @@ link: [ModelScope-FlashFace](https://www.modelscope.cn/models/iic/FlashFace/summ
 
 link: [Huggingface-FlashFace](https://huggingface.co/shilongz/FlashFace-SD1.5)
 
-You should download all the related weights and put them in the `cache` folder.
+You should download all the related weights and put them in the `cache` folder (e.g. `FlashFace/cache/flashface.ckpt`).
 
 ## Demo
 
