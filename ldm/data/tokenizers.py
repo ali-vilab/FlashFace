@@ -3,6 +3,7 @@
 import gzip
 import html
 from functools import lru_cache
+from pathlib import Path
 
 import ftfy
 import regex as re
@@ -78,8 +79,8 @@ class CLIPTokenizer(object):
         self.byte_decoder = {v: k for k, v in self.byte_encoder.items()}
 
         merges = gzip.open(
-            __file__.replace("ldm/data/tokenizers.py", "cache/bpe_simple_vocab_16e6.txt.gz")).read().decode(
-            'utf-8').split('\n')
+            Path(__file__).parents[2] / "cache" / "bpe_simple_vocab_16e6.txt.gz"
+        ).read().decode('utf-8').split('\n')
         merges = merges[1:49152 - 256 - 2 + 1]
         merges = [tuple(merge.split()) for merge in merges]
         vocab = list(bytes_to_unicode().values())
