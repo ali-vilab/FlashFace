@@ -3,6 +3,7 @@
 ``https://github.com/CompVis/latent-diffusion'', and
 ``https://github.com/Stability-AI/generative-models''."""
 import math
+from pathlib import Path
 
 import torch
 import torch.nn as nn
@@ -283,7 +284,6 @@ def sd_v1_vae(pretrained=False, device='cpu', **kwargs):
     model = AutoencoderKL(**cfg).to(device)
     if pretrained:
         model.load_state_dict(
-            torch.load(__file__.replace('ldm/models/vae.py',
-                                        'cache/sd-v1-vae.pth'),
+            torch.load(Path(__file__).parents[2] / "cache" / "sd-v1-vae.pth",
                        map_location=device))
     return model

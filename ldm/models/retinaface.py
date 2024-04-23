@@ -2,6 +2,7 @@
 ``https://github.com/biubug6/Pytorch_Retinaface''."""
 import itertools
 import math
+from pathlib import Path
 
 import torch
 import torch.nn as nn
@@ -379,9 +380,7 @@ def retinaface(pretrained=False, device='cpu', backbone='resnet50'):
         # init a model on device
         with torch.device(device):
             model = RetinaFace(backbone=backbone)
-        ckpt_path = __file__.replace('ldm/models/retinaface.py',
-                                     f'./cache/retinaface_{backbone}.pth')
-        # load checkpoint
+        ckpt_path = Path(__file__).parents[2] / "cache" / f"retinaface_{backbone}.pth"
         model.load_state_dict(torch.load(ckpt_path, map_location=device))
     else:
         # init a model on device

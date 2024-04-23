@@ -1,6 +1,7 @@
 """Concise re-implementation of ``https://github.com/openai/CLIP'' and
 ``https://github.com/mlfoundations/open_clip''."""
 import math
+from pathlib import Path
 
 import torch
 import torch.nn as nn
@@ -503,10 +504,8 @@ def _clip(pretrained=False,
 
     # load checkpoint
     if pretrained and pretrained_name:
-
-        path = __file__.replace('ldm/models/clip.py',
-                                './cache/openai-clip-vit-large-14.pth')
-        assert pretrained_name in path
+        path = Path(__file__).parents[2] / "cache" / "openai-clip-vit-large-14.pth"
+        assert pretrained_name in str(path)
         # load
         model.load_state_dict(torch.load(path,
                                          map_location=device,
