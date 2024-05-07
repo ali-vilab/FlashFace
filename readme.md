@@ -7,13 +7,13 @@
 
 ## FlashFace: Human Image Personalization with High-fidelity Identity Preservation
 </div> 
-<!-- ## <center>🔥[**Online Demo**](<>)🔥    🔥[**Project Page**](https://jshilong.github.io/flashface-page/)🔥 </center> -->
 
 
-### <center> 🔥🔥🔥 [Online Demo](https://replicate.com/zsxkib/flash-face)🔥🔥🔥  [**Project Page**](https://jshilong.github.io/flashface-page/)  🔥🔥🔥
+### <center> 🔥🔥🔥 [Online Demo](https://replicate.com/zsxkib/flash-face)🔥🔥🔥  [**Project Page**](https://jshilong.github.io/flashface-page/)  🔥🔥🔥 </center>
 
-### <center>  For optimal results, especially for Asian faces, it's strongly advised to read through this [tutorial](./docs/en.md) before diving in. Skipping this step may lead to undesirable or unanticipated outcomes.  
-### <center>  为了获得更好的结果，特别是对于亚洲人脸， 请在使用前您先行阅读 [中文教程](./docs/zh_cn.md) 获取一些经验，否则可能会导致生成结果较差。
+###   为了获得更好的结果，特别是对于亚洲人脸， 请在使用前您先行阅读 [中文教程](./docs/zh_cn.md) 获取一些经验，否则可能会导致生成结果较差。 
+
+###  For optimal results, especially for Asian faces, it's strongly advised to read through this [tutorial](./docs/en.md) before diving in. Skipping this step may lead to undesirable or unanticipated outcomes.  
 
 
 ## Feature
