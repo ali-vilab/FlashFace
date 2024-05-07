@@ -343,7 +343,7 @@ with block:
                 "``face position`` with the format of normalized coordinates [x1,y1,x2,y2]', For example, [0.1,0.1,0.5,0.5] means the face position is in the upper left corner of the image, [0.,0.,0.,0.] means do not constrain the face position"
             )
             bbox_text = gr.Textbox(label='face position ',
-                                   value='[0., 0., 0., 0.]')
+                                   value='[0.3, 0.1, 0.6, 0.4]')
 
         with gr.Column():
             gr.Markdown(
@@ -397,7 +397,7 @@ with block:
             classifier = gr.Slider(label='Reference Guidance Strength',
                                    minimum=1.8,
                                    maximum=4,
-                                   value=2.2,
+                                   value=2.4,
                                    step=0.1)
             step_to_launch_face_guidence = gr.Slider(
                 label='Step Index to Launch Ref Guidance',
