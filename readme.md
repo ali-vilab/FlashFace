@@ -7,9 +7,13 @@
 
 ## FlashFace: Human Image Personalization with High-fidelity Identity Preservation
 </div> 
-<!-- ## <center>🔥[**Online Demo**](<>)🔥    🔥[**Project Page**](https://jshilong.github.io/flashface-page/)🔥 </center> -->
 
-##   [**Project Page**](https://jshilong.github.io/flashface-page/) 
+
+### <center> 🔥🔥🔥 [Online Demo](https://replicate.com/zsxkib/flash-face)🔥🔥🔥  [**Project Page**](https://jshilong.github.io/flashface-page/)  🔥🔥🔥 </center>
+
+###   为了获得更好的结果，特别是对于亚洲人脸， 请在使用前您先行阅读 [中文教程](./docs/zh_cn.md) 获取一些经验，否则可能会导致生成结果较差。 
+
+###  For optimal results, especially for Asian faces, it's strongly advised to read through this [tutorial](./docs/en.md) before diving in. Skipping this step may lead to undesirable or unanticipated outcomes.  
 
 
 ## Feature
@@ -27,7 +31,12 @@
 
 </p>
 
-- \[April 18\] Inference code of **FlashFace-SD1.5** are released.
+- \[May 7\] 🔥🔥🔥 An [Online Demo](https://replicate.com/zsxkib/flash-face) for **FlashFace-SD1.5** has been graciously provided by [Sakib Ahamed](https://github.com/zsxkib). To achieve optimal results, it's recommended to thoroughly go through this [tutorial](./docs/en.md) / [中文教程](./docs/zh_cn.md) before jumping in.
+
+
+
+
+- \[April 18\] Inference code of **FlashFace-SD1.5** has been released.
 
 This version represents a clear advancement over our paper, as it has been trained for an extended duration. We also involve new guidance techniques in the inference process. Notably, this enhanced checkpoint demonstrates remarkable progress in terms of lighting and shadow effects. It show strong identity preservation ability even for non-celebrities. Please refer to the following images for more details. For the prompt and inference parameters, please refer to [**notebook demo**](flashface/all_finetune/inference.ipynb). If you are not satisfied with the generated images, you can submit your case in the issue so that we can help you improve it. Stay tuned for more versions!
 
