@@ -1,11 +1,14 @@
 from .nodes.flashface_generator import FlashFaceGenerator
+from .nodes.flashface_cliptextencode import FlashFaceCLIPTextEncode
 
 NODE_CLASS_MAPPINGS = {
-    "FlashFaceGenerator": FlashFaceGenerator
+    "FlashFaceGenerator": FlashFaceGenerator,
+    "FlashFaceCLIPTextEncode": FlashFaceCLIPTextEncode,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "FlashFaceGenerator": "📸 FlashFace Generator"
+    "FlashFaceGenerator": "📸 FlashFace Generator",
+    "FlashFaceCLIPTextEncode": "📸 FlashFace CLIP Text Encode",
 }
 
 WEB_DIRECTORY = "./web"

@@ -1,10 +1,10 @@
-import random
-from PIL import Image
-
 class FlashFaceGenerator:
     @classmethod
     def INPUT_TYPES(cls):
         return {"required": {
+            "positiive": ("CONDITIONING", {}),
+            "negative": ("CONDITIONING", {}),
+    
         }
     }
 
@@ -12,7 +12,7 @@ class FlashFaceGenerator:
     FUNCTION = "generate"
     CATEGORY = "FlashFace"
 
-    def generate(self, **kwargs):
+    def generate(self, positive, negative, **kwargs):
         image1 = kwargs.get("image1")
 
         return (image1, )
