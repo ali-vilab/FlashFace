@@ -3,7 +3,7 @@ import copy
 import torch
 import torch.nn as nn
 
-from ldm.models.unet import (AttentionBlock, MultiHeadAttention, UNet,
+from ....ldm.models.unet import (AttentionBlock, MultiHeadAttention, UNet,
                              sinusoidal_embedding)
 
 

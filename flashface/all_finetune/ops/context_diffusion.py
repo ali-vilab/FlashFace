@@ -3,7 +3,7 @@ the diffusion and denoising processes, as well as the loss evaluation."""
 
 import torch
 
-from ldm.ops.diffusion import GaussianDiffusion
+from ....ldm.ops.diffusion import GaussianDiffusion
 
 
 def _i(tensor, t, x):
