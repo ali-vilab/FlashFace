@@ -79,7 +79,7 @@ class CLIPTokenizer(object):
         self.byte_decoder = {v: k for k, v in self.byte_encoder.items()}
 
         merges = gzip.open(
-            Path(__file__).parents[2] / "cache" / "bpe_simple_vocab_16e6.txt.gz"
+            Path(__file__).parents[4] / "models" / "clip" / "bpe_simple_vocab_16e6.txt.gz"
         ).read().decode('utf-8').split('\n')
         merges = merges[1:49152 - 256 - 2 + 1]
         merges = [tuple(merge.split()) for merge in merges]

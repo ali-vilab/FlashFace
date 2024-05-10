@@ -504,7 +504,7 @@ def _clip(pretrained=False,
 
     # load checkpoint
     if pretrained and pretrained_name:
-        path = Path(__file__).parents[2] / "cache" / "openai-clip-vit-large-14.pth"
+        path = Path(__file__).parents[4] / "models" / "clip" / "openai-clip-vit-large-14.pth"
         assert pretrained_name in str(path)
         # load
         model.load_state_dict(torch.load(path,

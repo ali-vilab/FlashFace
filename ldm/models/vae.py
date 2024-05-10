@@ -284,6 +284,6 @@ def sd_v1_vae(pretrained=False, device='cpu', **kwargs):
     model = AutoencoderKL(**cfg).to(device)
     if pretrained:
         model.load_state_dict(
-            torch.load(Path(__file__).parents[2] / "cache" / "sd-v1-vae.pth",
+            torch.load(Path(__file__).parents[4] / "models" / "vae" / "sd-v1-vae.pth",
                        map_location=device))
     return model
