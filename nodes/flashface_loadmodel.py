@@ -24,8 +24,7 @@ class FlashFaceLoadModel:
             },
         }
     
-    RETURN_TYPES = ("MODEL", "MODEL", "MODEL", "CLIP")
-    RETURN_NAMES = ("autoencoder", "flashface model", "diffusion model")
+    RETURN_TYPES = ("MODEL", "CLIP", "VAE", )
     FUNCTION = "load_models"
 
     def load_models(self, flashface_file):
@@ -55,4 +54,4 @@ class FlashFaceLoadModel:
         diffusion = ContextGaussianDiffusion(sigmas=sigmas, prediction_type=cfg.prediction_type)
         diffusion.num_pairs = cfg.num_pairs
 
-        return (autoencoder, flashface_model, diffusion, (clip, clip_tokenizer))
+        return (autoencoder, (flashface_model, diffusion), (clip, clip_tokenizer))

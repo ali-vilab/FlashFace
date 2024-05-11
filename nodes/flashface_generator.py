@@ -3,19 +3,22 @@ class FlashFaceGenerator:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "autoencoder": ("MODEL", {}),
-                "flashface_model": ("MODEL", {}),
-                "diffusion_model": ("MODEL", {}),
+                "model": ("MODEL", {}),
                 "positive": ("CONDITIONING", {}),
                 "negative": ("CONDITIONING", {}),
+                "images": ("IMAGE", {}),
+                "vae": ("VAE", {}),
+
             }
         }
 
     RETURN_TYPES = ("IMAGE",)
+    OUTPUT_IS_LIST = (True,)
     FUNCTION = "generate"
     CATEGORY = "FlashFace"
 
-    def generate(self, autoencoder, flashface_model, diffusion_model, positive, negative, **kwargs):
-        image1 = kwargs.get("image1")
 
-        return (image1,)
+    def generate(self, model, positive, negative, images, vae):
+
+
+        return (images, )

@@ -373,14 +373,17 @@ class RetinaFace(nn.Module):
         return out_bboxes, out_landmarks
 
 
-def retinaface(pretrained=False, device='cpu', backbone='resnet50'):
+def retinaface(pretrained=False, device='cpu', backbone='resnet50', ckpt_path=None):
     # init model
     if pretrained:
 
         # init a model on device
         with torch.device(device):
             model = RetinaFace(backbone=backbone)
-        ckpt_path = Path(__file__).parents[2] / "cache" / f"retinaface_{backbone}.pth"
+
+        if(ckpt_path is None):
+            ckpt_path = Path(__file__).parents[2] / "cache" / f"retinaface_{backbone}.pth"
+
         model.load_state_dict(torch.load(ckpt_path, map_location=device))
     else:
         # init a model on device
