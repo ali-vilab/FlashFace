@@ -147,7 +147,7 @@ def generate(
     steps=30,
     face_bbox=[0.3, 0.1, 0.6, 0.4],
     lamda_feat=1.2,
-    face_guidence=3,
+    face_guidence=3.2,
     num_sample=1,
     text_control_scale=7.5,
     seed=-1,

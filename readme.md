@@ -19,7 +19,7 @@
 positive prompt: A handsome young man / A beautiful young woman
 face position: [0.3, 0.1, 0.6, 0.4] 
 Reference Feature Strength: 1.2
-Reference Guidance Strength: 3
+Reference Guidance Strength: 3.2
 Step Index to Launch Ref Guidance: 750
 # When artifacts are found on the face, reduce these three values appropriately.
 
