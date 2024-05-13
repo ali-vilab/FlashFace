@@ -11,6 +11,22 @@
 
 ### <center> 🔥🔥🔥 [Online Demo](https://replicate.com/zsxkib/flash-face)🔥🔥🔥  [**Project Page**](https://jshilong.github.io/flashface-page/)  🔥🔥🔥 </center>
 
+### Recommended hyper-parameters to obtain stable ID Fidelity
+```
+# Please include age words in the prompt, e.g. baby girl/boy, young woman/man, older woman/man
+# Otherwise, FlashFace tends to produce middle-aged faces, which tend to be fatter.
+
+positive prompt: A handsome young man / A beautiful young woman
+face position: [0.3, 0.1, 0.6, 0.4] 
+Reference Feature Strength: 1.2
+Reference Guidance Strength: 3.2
+Step Index to Launch Ref Guidance: 750
+# When artifacts are found on the face, reduce these three values appropriately.
+
+```
+
+
+
 ###   为了获得更好的结果，特别是对于亚洲人脸， 请在使用前您先行阅读 [中文教程](./docs/zh_cn.md) 获取一些经验，否则可能会导致生成结果较差。 
 
 ###  For optimal results, especially for Asian faces, it's strongly advised to read through this [tutorial](./docs/en.md) before diving in. Skipping this step may lead to undesirable or unanticipated outcomes.  
