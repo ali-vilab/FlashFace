@@ -13,18 +13,45 @@
 
 ### Recommended hyper-parameters to obtain stable ID Fidelity
 ```
-# Please include age words in the prompt, e.g. baby girl/boy, young woman/man, older woman/man
+# Please include the age word in the prompt, e.g. young woman/man
 # Otherwise, FlashFace tends to produce middle-aged faces, which tend to be fatter.
+# 请在 prompt 包含年龄词如 young，否则 FlashFace 可能生成中年照片，脸部一般偏胖
 
-positive prompt: A handsome young man / A beautiful young woman
-face position: [0.3, 0.1, 0.6, 0.4] 
+
+positive prompt: A handsome young man / A beautiful young woman .......
+face position: [0.3, 0.2, 0.6, 0.5] # avoid generating faces that are too large or too small
 Reference Feature Strength: 1.2
 Reference Guidance Strength: 3.2
 Step Index to Launch Ref Guidance: 750
+
 # When artifacts are found on the face, reduce these three values appropriately.
+# 当脸部出现贴图感,请适当调低这三个参数
+```
+<p align="center">
+<img src="./examples/age/output1.png" width="80%"> <br>
+
+</p>
+
+### Recommended hyper-parameters to change the age
+```
+# Please include age words in the prompt, e.g. baby girl/boy,  An very old woman/man
+
+
+positive prompt: A baby girl / An very old woman ......
+face position: [0.3, 0.2, 0.6, 0.5] # avoid generating faces that are too large or too small
+Reference Feature Strength: 0.9
+Reference Guidance Strength: 2.5
+default_text_control_scale = 8.5
+Step Index to Launch Ref Guidance: 750
+
+# When ID Fidelity is not enough for the changed-aged person, please turn these values up
+# 如果感觉人脸相似度不够，请调高这三个参数
 
 ```
+<p align="center">
+<img src="./examples/age/output2.png" width="80%"> <br>
 
+</p>
 
 
 ###   为了获得更好的结果，特别是对于亚洲人脸， 请在使用前您先行阅读 [中文教程](./docs/zh_cn.md) 获取一些经验，否则可能会导致生成结果较差。 
