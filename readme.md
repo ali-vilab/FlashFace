@@ -9,7 +9,11 @@
 </div> 
 
 
-### <center> 🔥🔥🔥 [Online Demo](https://replicate.com/zsxkib/flash-face)🔥🔥🔥  [**Project Page**](https://jshilong.github.io/flashface-page/)  🔥🔥🔥 </center>
+ 
+
+### 🔥 [**Project Page**](https://jshilong.github.io/flashface-page/)  🔥
+
+###  [🔥Unofficial Online Demo🔥](https://replicate.com/zsxkib/flash-face)（please use the following parameters instead of the default parameters in this demo） 
 
 ### Recommended hyper-parameters to obtain stable ID Fidelity
 ```
