@@ -28,7 +28,7 @@ Step Index to Launch Ref Guidance: 750
 # 当脸部出现贴图感,请适当调低这三个参数
 ```
 <p align="center">
-<img src="./examples/age/output1.png" width="80%"> <br>
+<img src="https://github.com/jshilong/flashface-page/blob/main/static/githubfigs/output1-min.png" width="80%"> <br>
 
 </p>
 
@@ -50,7 +50,7 @@ Step Index to Launch Ref Guidance: 750
 
 ```
 <p align="center">
-<img src="./examples/age/output2.png" width="80%"> <br>
+<img src="https://github.com/jshilong/flashface-page/blob/main/static/githubfigs/output2-min.png" width="80%"> <br>
 
 </p>
 
