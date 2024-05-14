@@ -13,7 +13,7 @@
 
 ### 🔥 [**Project Page**](https://jshilong.github.io/flashface-page/)  🔥
 
-###  [🔥Unofficial Online Demo🔥](https://replicate.com/zsxkib/flash-face)（please use the following parameters instead of the default parameters in this demo） 
+###  [🔥Unofficial Online Demo🔥](https://replicate.com/zsxkib/flash-face)（please use the following hyper-parameters instead of the default hyper-parameters of this demo to obtain stable ID Fidelity） 
 
 ### Recommended hyper-parameters to obtain stable ID Fidelity
 ```
