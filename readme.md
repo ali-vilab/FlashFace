@@ -39,9 +39,10 @@ Step Index to Launch Ref Guidance: 750
 
 positive prompt: A baby girl / An very old woman ......
 face position: [0.3, 0.2, 0.6, 0.5] # avoid generating faces that are too large or too small
+default_text_control_scale = 8.5
+
 Reference Feature Strength: 0.9
 Reference Guidance Strength: 2.5
-default_text_control_scale = 8.5
 Step Index to Launch Ref Guidance: 750
 
 # When ID Fidelity is not enough for the changed-aged person, please turn these values up
