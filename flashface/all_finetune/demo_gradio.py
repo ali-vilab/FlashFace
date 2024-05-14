@@ -428,6 +428,13 @@ with block:
                 'examples/man_face/3.png', 'examples/man_face/4.png', 1.2, 3.2,
                 750, 2, 0, 25, '[0.3, 0.1, 0.6, 0.4]', 7.5, 'glasses, beard'
             ],
+            
+            [
+                'A very old man, with short wavy hair',
+                'examples/man_face/1.png', 'examples/man_face/2.png',
+                'examples/man_face/3.png', 'examples/man_face/4.png', 0.9, 2,
+                750, 2, 0, 25, '[0.3, 0.1, 0.6, 0.4]', 7.5, ''
+            ],
 
         ],
                     inputs=[
