@@ -96,7 +96,7 @@ class FlashFaceGenerator:
         model.share_cache['similarity'] = torch.tensor(reference_feature_strength).cuda()
         model.share_cache['ori_similarity'] = torch.tensor(reference_feature_strength).cuda()
         model.share_cache['lamda_feat_before_ref_guidence'] = torch.tensor(lamda_feat_before_ref_guidence).cuda()
-        model.share_cache['ref_context'] = negative['snc'].repeat( len(ref_z0), 1, 1)
+        model.share_cache['ref_context'] = negative.repeat( len(ref_z0), 1, 1)
         model.share_cache['masks'] = empty_mask
         model.share_cache['classifier'] = reference_guidance_strength
         model.share_cache['step_to_launch_face_guidence'] = face_guidance_steps
@@ -105,6 +105,13 @@ class FlashFaceGenerator:
 
         progress = 0.0
         diffusion.progress = 0
+
+        positive = positive[None].repeat(num_samples, 1, 1, 1).flatten(0, 1)
+        positive = {'context': positive}
+
+        negative = {
+            'context': negative[None].repeat(num_samples, 1, 1, 1).flatten(0, 1)
+        }
         # sample
         with amp.autocast(dtype=cfg.flash_dtype), torch.no_grad():
             z0 = diffusion.sample(solver=sampler,
