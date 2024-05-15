@@ -1,3 +1,4 @@
+from ..ldm import data
 class FlashFaceCLIPTextEncode:
     @classmethod
     def INPUT_TYPES(s):
@@ -32,7 +33,8 @@ class FlashFaceCLIPTextEncode:
 
             return x
 
-        clip, clip_tokenizer = clip
+        clip_tokenizer = data.CLIPTokenizer(padding='eos')
+
         c = encode_text(clip, clip_tokenizer([positive_prompt]).to('cuda'))
         c = c[None].repeat(num_sample, 1, 1, 1).flatten(0, 1)
         c = {'context': c}
@@ -40,6 +42,9 @@ class FlashFaceCLIPTextEncode:
         single_null_context = encode_text(clip,
                                           clip_tokenizer([negative_prompt]).cuda()).to('cuda')
         null_context = single_null_context
-        nc = {'context': null_context[None].repeat(num_sample, 1, 1, 1).flatten(0, 1)}
+        nc = {
+            'context': null_context[None].repeat(num_sample, 1, 1, 1).flatten(0, 1),
+            'snc': single_null_context,
+        }
 
         return (c, nc, )

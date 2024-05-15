@@ -1,3 +1,13 @@
+import numpy as np
+import torch
+import torch.cuda.amp as amp
+
+from ..flashface.all_finetune.config import cfg
+from ..flashface.all_finetune.utils import Compose, PadToSquare, seed_everything
+import comfy.samplers
+import torchvision.transforms as T
+
+
 class FlashFaceGenerator:
     @classmethod
     def INPUT_TYPES(cls):
@@ -6,19 +16,119 @@ class FlashFaceGenerator:
                 "model": ("MODEL", {}),
                 "positive": ("CONDITIONING", {}),
                 "negative": ("CONDITIONING", {}),
-                "images": ("IMAGE", {}),
+                "pil_images": ("PIL_IMAGE", {}),
                 "vae": ("VAE", {}),
+                "seed": ("INT", {"default": -1, "min": -1, "step": 1}),
+                "sampler": (comfy.samplers.KSampler.SAMPLERS, ),
+                "steps": ("INT", {"default": 35}),
+                "text_control_scale": ("FLOAT", {"default": 7.5, "min": 0.0, "max": 10.0, "step": 0.1}),
+                "reference_feature_strength": ("FLOAT", {"default": 0.9, "min": 0.7, "max": 1.4, "step": 0.05}),
+                "reference_guidance_strength": ("FLOAT", {"default": 2.4, "min": 1.8, "max": 4.0, "step": 0.1}),
+                "face_guidance_steps": ("INT", {"default": 600, "min": 0, "max": 1000, "step": 50}),
+                "face_bbox_x1": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.1}),
+                "face_bbox_y1": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.1}),
+                "face_bbox_x2": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 1.0, "step": 0.1}),
+                "face_bbox_y2": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 1.0, "step": 0.1}),
+                "num_samples": ("INT", {"default": 1}),
 
             }
         }
-
     RETURN_TYPES = ("IMAGE",)
     OUTPUT_IS_LIST = (True,)
     FUNCTION = "generate"
     CATEGORY = "FlashFace"
 
 
-    def generate(self, model, positive, negative, images, vae):
+    def generate(self, model, positive, negative, pil_images, vae, seed, sampler, steps, text_control_scale,
+                 reference_feature_strength, reference_guidance_strength, face_guidance_steps, face_bbox_x1,
+                 face_bbox_y1, face_bbox_x2, face_bbox_y2, num_samples):
 
+        face_transforms = Compose(
+            [T.ToTensor(),
+             T.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])])
 
-        return (images, )
+        seed_everything(seed)
+
+        lamda_feat_before_ref_guidence = 0.85
+
+        # process the ref_imgs
+        face_bbox = [face_bbox_x1, face_bbox_y1, face_bbox_x2, face_bbox_y2]
+        H = W = 768
+        if isinstance(face_bbox, str):
+            face_bbox = eval(face_bbox)
+        normalized_bbox = face_bbox
+        face_bbox = [
+            int(normalized_bbox[0] * W),
+            int(normalized_bbox[1] * H),
+            int(normalized_bbox[2] * W),
+            int(normalized_bbox[3] * H)
+        ]
+        max_size = max(face_bbox[2] - face_bbox[1], face_bbox[3] - face_bbox[1])
+        empty_mask = torch.zeros((H, W))
+
+        empty_mask[face_bbox[1]:face_bbox[1] + max_size,
+        face_bbox[0]:face_bbox[0] + max_size] = 1
+
+        empty_mask = empty_mask[::8, ::8].cuda()
+        empty_mask = empty_mask[None].repeat(num_samples, 1, 1)
+
+        padding_to_square = PadToSquare(224)
+        pasted_ref_faces = []
+        show_refs = []
+        print(type(pil_images))
+        for ref_img in pil_images:
+            ref_img = ref_img.convert('RGB')
+            ref_img = padding_to_square(ref_img)
+            to_paste = ref_img
+
+            to_paste = face_transforms(to_paste)
+            pasted_ref_faces.append(to_paste)
+
+        faces = torch.stack(pasted_ref_faces, dim=0).to('cuda')
+
+        ref_z0 = cfg.ae_scale * torch.cat([
+            vae.sample(u, deterministic=True)
+            for u in faces.split(cfg.ae_batch_size)
+        ])
+        model, diffusion = model
+        model.share_cache['num_pairs'] = 4
+        model.share_cache['ref'] = ref_z0
+        model.share_cache['similarity'] = torch.tensor(reference_feature_strength).cuda()
+        model.share_cache['ori_similarity'] = torch.tensor(reference_feature_strength).cuda()
+        model.share_cache['lamda_feat_before_ref_guidence'] = torch.tensor(lamda_feat_before_ref_guidence).cuda()
+        model.share_cache['ref_context'] = negative['snc'].repeat( len(ref_z0), 1, 1)
+        model.share_cache['masks'] = empty_mask
+        model.share_cache['classifier'] = reference_guidance_strength
+        model.share_cache['step_to_launch_face_guidence'] = face_guidance_steps
+
+        diffusion.classifier = reference_guidance_strength
+
+        progress = 0.0
+        diffusion.progress = 0
+        # sample
+        with amp.autocast(dtype=cfg.flash_dtype), torch.no_grad():
+            z0 = diffusion.sample(solver=sampler,
+                                  noise=torch.empty(num_samples,
+                                                    4,
+                                                    768 // 8,
+                                                    768 // 8,
+                                                    device='cuda').normal_(),
+                                  model=model,
+                                  model_kwargs=[positive, negative],
+                                  steps=steps,
+                                  guide_scale=text_control_scale,
+                                  guide_rescale=0.5,
+                                  show_progress=True,
+                                  discretization=cfg.discretization)
+
+        imgs = vae.decode(z0 / cfg.ae_scale)
+        del model.share_cache['ori_similarity']
+        # output
+        imgs = (imgs.permute(0, 2, 3, 1) * 127.5 + 127.5).cpu().numpy().clip(
+            0, 255).astype(np.uint8)
+
+        # convert to PIL image
+        # imgs = [Image.fromarray(img) for img in imgs]
+        # imgs = imgs + show_refs
+
+        return (imgs, )

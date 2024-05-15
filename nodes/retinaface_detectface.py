@@ -4,9 +4,9 @@ import torch
 import numpy as np
 import torchvision.transforms as T
 import torchvision.transforms.functional as F
-from PIL import Image, ImageDraw, ImageOps, ImageSequence
-from ..ldm.models.retinaface import crop_face, retinaface
-from ..flashface.all_finetune.utils import Compose, PadToSquare, get_padding, seed_everything
+from PIL import ImageDraw, ImageOps, ImageSequence
+from ..ldm.models.retinaface import crop_face
+from ..flashface.all_finetune.utils import PadToSquare, get_padding
 
 class RetinaFaceDetectFace:
     @classmethod
@@ -88,5 +88,4 @@ class RetinaFaceDetectFace:
                 image = torch.from_numpy(image)[None,]
                 output_images.append(image)
 
-
-        return (face_imgs, output_images,)
+        return ([face_imgs], [output_images],)

@@ -47,7 +47,7 @@ class ContextGaussianDiffusion(GaussianDiffusion):
         log_var = torch.log(var).clamp_(-20, 20)
 
         if hasattr(self, 'progress'):
-            self.progress(1 - float(t[0]) / 1000)
+            self.progress = 1 - float(t[0]) / 1000
 
         classifier = getattr(self, 'classifier', 0)
 
