@@ -1,11 +1,14 @@
 import numpy as np
 import torch
 import torch.cuda.amp as amp
+import torchvision.transforms as T
+import torchvision.transforms.functional as F
+from PIL import ImageOps, ImageSequence
 
 from ..flashface.all_finetune.config import cfg
 from ..flashface.all_finetune.utils import Compose, PadToSquare, seed_everything
 import comfy.samplers
-import torchvision.transforms as T
+
 
 
 class FlashFaceGenerator:
@@ -16,9 +19,9 @@ class FlashFaceGenerator:
                 "model": ("MODEL", {}),
                 "positive": ("CONDITIONING", {}),
                 "negative": ("CONDITIONING", {}),
-                "pil_images": ("PIL_IMAGE", {}),
+                "reference_images": ("PIL_IMAGE", {}),
                 "vae": ("VAE", {}),
-                "seed": ("INT", {"default": -1, "min": -1, "step": 1}),
+                "seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
                 "sampler": (comfy.samplers.KSampler.SAMPLERS, ),
                 "steps": ("INT", {"default": 35}),
                 "text_control_scale": ("FLOAT", {"default": 7.5, "min": 0.0, "max": 10.0, "step": 0.1}),
@@ -39,15 +42,15 @@ class FlashFaceGenerator:
     CATEGORY = "FlashFace"
 
 
-    def generate(self, model, positive, negative, pil_images, vae, seed, sampler, steps, text_control_scale,
+    def generate(self, model, positive, negative, reference_images, vae, seed, sampler, steps, text_control_scale,
                  reference_feature_strength, reference_guidance_strength, face_guidance_steps, face_bbox_x1,
                  face_bbox_y1, face_bbox_x2, face_bbox_y2, num_samples):
+
+        seed_everything(seed)
 
         face_transforms = Compose(
             [T.ToTensor(),
              T.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])])
-
-        seed_everything(seed)
 
         lamda_feat_before_ref_guidence = 0.85
 
@@ -74,9 +77,8 @@ class FlashFaceGenerator:
 
         padding_to_square = PadToSquare(224)
         pasted_ref_faces = []
-        show_refs = []
-        print(type(pil_images))
-        for ref_img in pil_images:
+
+        for ref_img in reference_images:
             ref_img = ref_img.convert('RGB')
             ref_img = padding_to_square(ref_img)
             to_paste = ref_img
@@ -137,5 +139,7 @@ class FlashFaceGenerator:
         # convert to PIL image
         # imgs = [Image.fromarray(img) for img in imgs]
         # imgs = imgs + show_refs
+
+        imgs = torch.from_numpy(imgs)
 
         return (imgs, )

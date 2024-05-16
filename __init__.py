@@ -1,23 +1,20 @@
 from .nodes.flashface_generator import FlashFaceGenerator
 from .nodes.flashface_cliptextencode import FlashFaceCLIPTextEncode
 from .nodes.flashface_loadmodel import FlashFaceLoadModel
-from .nodes.retinaface_loadmodel import RetinaFaceLoadModel
-from .nodes.retinaface_detectface import RetinaFaceDetectFace
+from .nodes.flashface_imagetopil import FlashFaceImageToPIL
 
 NODE_CLASS_MAPPINGS = {
     "FlashFaceGenerator": FlashFaceGenerator,
     "FlashFaceCLIPTextEncode": FlashFaceCLIPTextEncode,
     "FlashFaceLoadModel": FlashFaceLoadModel,
-    "RetinaFaceLoadModel": RetinaFaceLoadModel,
-    "RetinaFaceDetectFace": RetinaFaceDetectFace
+    "FlashFaceImageToPIL": FlashFaceImageToPIL
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
     "FlashFaceGenerator": "📸 FlashFace Generator",
     "FlashFaceCLIPTextEncode": "📸 FlashFace CLIP Text Encode",
     "FlashFaceLoadModel": "📸 FlashFace Load Model",
-    "RetinaFaceLoadModel": "👁️ RetinaFace Load Model",
-    "RetinaFaceDetectFace": "👁️ RetinaFace Detect Face"
+    "FlashFaceImageToPIL": "📸 FlashFace Image to PIL"
 }
 
 WEB_DIRECTORY = "./web"
