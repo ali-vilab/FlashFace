@@ -37,8 +37,7 @@ class FlashFaceGenerator:
 
             }
         }
-    RETURN_TYPES = ("PIL_IMAGE", )
-    OUTPUT_IS_LIST = (True,)
+    RETURN_TYPES = ("LATENT", )
     FUNCTION = "generate"
     CATEGORY = "FlashFace"
 
@@ -148,6 +147,5 @@ class FlashFaceGenerator:
         out = {
             "samples": z0,
         }
-
 
         return (out, )
