@@ -1,6 +1,3 @@
-cd custom_nodes
-git clone https://github.com/cold-hand/ComfyUI-FlashFace
-cd FlashFace
 pip install -r requirements-comfy.txt
 cd ../../models
 mkdir flashface
