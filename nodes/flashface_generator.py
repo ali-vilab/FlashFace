@@ -4,6 +4,7 @@ import torch.cuda.amp as amp
 import torchvision.transforms as T
 import torchvision.transforms.functional as F
 from PIL import ImageOps, ImageSequence
+from PIL import Image
 
 from ..flashface.all_finetune.config import cfg
 from ..flashface.all_finetune.utils import Compose, PadToSquare, seed_everything
@@ -36,7 +37,7 @@ class FlashFaceGenerator:
 
             }
         }
-    RETURN_TYPES = ("IMAGE",)
+    RETURN_TYPES = ("PIL_IMAGE", )
     OUTPUT_IS_LIST = (True,)
     FUNCTION = "generate"
     CATEGORY = "FlashFace"
@@ -77,7 +78,7 @@ class FlashFaceGenerator:
 
         padding_to_square = PadToSquare(224)
         pasted_ref_faces = []
-
+        show_refs = []
         for ref_img in reference_images:
             ref_img = ref_img.convert('RGB')
             ref_img = padding_to_square(ref_img)
@@ -130,16 +131,23 @@ class FlashFaceGenerator:
                                   show_progress=True,
                                   discretization=cfg.discretization)
 
-        imgs = vae.decode(z0 / cfg.ae_scale)
-        del model.share_cache['ori_similarity']
-        # output
-        imgs = (imgs.permute(0, 2, 3, 1) * 127.5 + 127.5).cpu().numpy().clip(
-            0, 255).astype(np.uint8)
-
-        # convert to PIL image
+        # imgs = vae.decode(z0 / cfg.ae_scale)
+        # del model.share_cache['ori_similarity']
+        # # output
+        # imgs = (imgs.permute(0, 2, 3, 1) * 127.5 + 127.5).cpu().numpy().clip(
+        #     0, 255).astype(np.uint8)
+        #
+        # # convert to PIL image
         # imgs = [Image.fromarray(img) for img in imgs]
         # imgs = imgs + show_refs
+        #
+        # # save imgs to file
+        # for i, img in enumerate(imgs):
+        #     img.save(f"sample_{i}.png")
 
-        imgs = torch.from_numpy(imgs)
+        out = {
+            "samples": z0,
+        }
 
-        return (imgs, )
+
+        return (out, )
