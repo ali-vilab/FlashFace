@@ -37,7 +37,7 @@ class FlashFaceGenerator:
 
             }
         }
-    RETURN_TYPES = ("LATENT", )
+    RETURN_TYPES = ("LATENT", "IMAGE", "PIL_IMAGE", )
     FUNCTION = "generate"
     CATEGORY = "FlashFace"
 
@@ -130,17 +130,17 @@ class FlashFaceGenerator:
                                   show_progress=True,
                                   discretization=cfg.discretization)
 
-        # imgs = vae.decode(z0 / cfg.ae_scale)
-        # del model.share_cache['ori_similarity']
-        # # output
-        # imgs = (imgs.permute(0, 2, 3, 1) * 127.5 + 127.5).cpu().numpy().clip(
-        #     0, 255).astype(np.uint8)
-        #
-        # # convert to PIL image
-        # imgs = [Image.fromarray(img) for img in imgs]
-        # imgs = imgs + show_refs
-        #
-        # # save imgs to file
+        imgs = vae.decode(z0 / cfg.ae_scale)
+        del model.share_cache['ori_similarity']
+        # output
+        imgs = (imgs.permute(0, 2, 3, 1) * 127.5 + 127.5).cpu().numpy().clip(
+            0, 255).astype(np.uint8)
+
+        # convert to PIL image
+        imgs_pil = [Image.fromarray(img) for img in imgs]
+        imgs_pil = imgs_pil + show_refs
+
+        # save imgs to file
         # for i, img in enumerate(imgs):
         #     img.save(f"sample_{i}.png")
 
@@ -148,4 +148,4 @@ class FlashFaceGenerator:
             "samples": z0,
         }
 
-        return (out, )
+        return (out, imgs, imgs_pil, )
