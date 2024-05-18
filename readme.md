@@ -8,6 +8,15 @@
 ## FlashFace: Human Image Personalization with High-fidelity Identity Preservation
 </div> 
 
+### <center> ComfyUI: Installation Instructions </center>
+This is a custom node it's the first time I've created a node so it is a little rough around the edges, however I plan on improving it in the future.
+1. Navigate to the `custom_nodes` directory in your ComfyUI installation.
+2. Install the custom node by running `git clone https://github.com/cold-hand/ComfyUI-FlashFace.git` in the `custom_nodes` directory.
+3. cd into the `ComfyUI-FlashFace` directory and run `pip install -r requirements-comfy.txt` to install the required packages. Do not run `pip install -r requirements.txt` as this will install the requirements for the original FlashFace repository, and possible break your comfy installation by installing torch again
+4. Restart ComfyUI and you should see the FlashFace node in the node list.
+5. Install the ImpactPack from the ComfyUI Manager.
+6. Install Facerestore CF (Code Former) from the ComfyUI Manager. 
+7. Load the provided example-workflow.json file to see how the nodes are used.
 
 ### <center> 🔥🔥🔥 [Online Demo](https://replicate.com/zsxkib/flash-face)🔥🔥🔥  [**Project Page**](https://jshilong.github.io/flashface-page/)  🔥🔥🔥 </center>
 
