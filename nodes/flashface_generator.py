@@ -23,12 +23,12 @@ class FlashFaceGenerator:
                 "reference_images": ("PIL_IMAGE", {}),
                 "vae": ("VAE", {}),
                 "seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
-                "sampler": (['ddim', 'euler', 'dpm2pp'], ),
+                "sampler": (['ddim', ], ),
                 "steps": ("INT", {"default": 35}),
-                "text_control_scale": ("FLOAT", {"default": 7.5, "min": 0.0, "max": 10.0, "step": 0.1}),
+                "text_guidance_strength": ("FLOAT", {"default": 7.5, "min": 0.0, "max": 10.0, "step": 0.1}),
                 "reference_feature_strength": ("FLOAT", {"default": 0.9, "min": 0.7, "max": 1.4, "step": 0.05}),
                 "reference_guidance_strength": ("FLOAT", {"default": 2.4, "min": 1.8, "max": 4.0, "step": 0.1}),
-                "face_guidance_steps": ("INT", {"default": 600, "min": 0, "max": 1000, "step": 50}),
+                "step_to_launch_face_guidance": ("INT", {"default": 600, "min": 0, "max": 1000, "step": 50}),
                 "face_bbox_x1": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.1}),
                 "face_bbox_y1": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.1}),
                 "face_bbox_x2": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.1}),
@@ -42,8 +42,8 @@ class FlashFaceGenerator:
     CATEGORY = "FlashFace"
 
 
-    def generate(self, model, positive, negative, reference_images, vae, seed, sampler, steps, text_control_scale,
-                 reference_feature_strength, reference_guidance_strength, face_guidance_steps, face_bbox_x1,
+    def generate(self, model, positive, negative, reference_images, vae, seed, sampler, steps, text_guidance_strength,
+                 reference_feature_strength, reference_guidance_strength, step_to_launch_face_guidance, face_bbox_x1,
                  face_bbox_y1, face_bbox_x2, face_bbox_y2, num_samples):
 
         # seed_everything(seed)
@@ -97,11 +97,11 @@ class FlashFaceGenerator:
         model.share_cache['ref'] = ref_z0
         model.share_cache['similarity'] = torch.tensor(reference_feature_strength).cuda()
         model.share_cache['ori_similarity'] = torch.tensor(reference_feature_strength).cuda()
-        model.share_cache['lamda_feat_before_ref_guidence'] = torch.tensor(lamda_feat_before_ref_guidence).cuda()
+        model.share_cache['lamda_feat_before_ref_guidance'] = torch.tensor(lamda_feat_before_ref_guidence).cuda()
         model.share_cache['ref_context'] = negative.repeat(len(ref_z0), 1, 1)
         model.share_cache['masks'] = empty_mask
         model.share_cache['classifier'] = reference_guidance_strength
-        model.share_cache['step_to_launch_face_guidence'] = face_guidance_steps
+        model.share_cache['step_to_launch_face_guidance'] = step_to_launch_face_guidance
 
         diffusion.classifier = reference_guidance_strength
 
@@ -125,7 +125,7 @@ class FlashFaceGenerator:
                                   model=model,
                                   model_kwargs=[positive, negative],
                                   steps=steps,
-                                  guide_scale=text_control_scale,
+                                  guide_scale=text_guidance_strength,
                                   guide_rescale=0.5,
                                   show_progress=True,
                                   discretization=cfg.discretization)

@@ -4,7 +4,7 @@ class FlashFaceCLIPTextEncode:
     def INPUT_TYPES(s):
         return {
             "required": {
-                "prompt": ("STRING", {"multiline": False, "default": ""}),
+                "prompt": ("STRING", {"multiline": True, "default": ""}),
                 "clip": ("CLIP",),
                 "base_prompt": (["Do not append", "Append Positive Base Prompt", "Append Negative Base Prompt"], {"default": "Do not append"}),
             },
