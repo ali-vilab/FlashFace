@@ -23,7 +23,7 @@ class FlashFaceGenerator:
                 "reference_images": ("PIL_IMAGE", {}),
                 "vae": ("VAE", {}),
                 "seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
-                "sampler": (comfy.samplers.KSampler.SAMPLERS, ),
+                "sampler": (['ddim', 'euler', 'dpm2pp'], ),
                 "steps": ("INT", {"default": 35}),
                 "text_control_scale": ("FLOAT", {"default": 7.5, "min": 0.0, "max": 10.0, "step": 0.1}),
                 "reference_feature_strength": ("FLOAT", {"default": 0.9, "min": 0.7, "max": 1.4, "step": 0.05}),
@@ -31,13 +31,13 @@ class FlashFaceGenerator:
                 "face_guidance_steps": ("INT", {"default": 600, "min": 0, "max": 1000, "step": 50}),
                 "face_bbox_x1": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.1}),
                 "face_bbox_y1": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.1}),
-                "face_bbox_x2": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 1.0, "step": 0.1}),
-                "face_bbox_y2": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 1.0, "step": 0.1}),
+                "face_bbox_x2": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.1}),
+                "face_bbox_y2": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.1}),
                 "num_samples": ("INT", {"default": 1}),
 
             }
         }
-    RETURN_TYPES = ("LATENT", "IMAGE", "PIL_IMAGE", )
+    RETURN_TYPES = ("PIL_IMAGE", )
     FUNCTION = "generate"
     CATEGORY = "FlashFace"
 
@@ -46,7 +46,7 @@ class FlashFaceGenerator:
                  reference_feature_strength, reference_guidance_strength, face_guidance_steps, face_bbox_x1,
                  face_bbox_y1, face_bbox_x2, face_bbox_y2, num_samples):
 
-        seed_everything(seed)
+        # seed_everything(seed)
 
         face_transforms = Compose(
             [T.ToTensor(),
@@ -93,12 +93,12 @@ class FlashFaceGenerator:
             for u in faces.split(cfg.ae_batch_size)
         ])
         model, diffusion = model
-        model.share_cache['num_pairs'] = 4
+        model.share_cache['num_pairs'] = len(faces)
         model.share_cache['ref'] = ref_z0
         model.share_cache['similarity'] = torch.tensor(reference_feature_strength).cuda()
         model.share_cache['ori_similarity'] = torch.tensor(reference_feature_strength).cuda()
         model.share_cache['lamda_feat_before_ref_guidence'] = torch.tensor(lamda_feat_before_ref_guidence).cuda()
-        model.share_cache['ref_context'] = negative.repeat( len(ref_z0), 1, 1)
+        model.share_cache['ref_context'] = negative.repeat(len(ref_z0), 1, 1)
         model.share_cache['masks'] = empty_mask
         model.share_cache['classifier'] = reference_guidance_strength
         model.share_cache['step_to_launch_face_guidence'] = face_guidance_steps
@@ -148,4 +148,4 @@ class FlashFaceGenerator:
             "samples": z0,
         }
 
-        return (out, imgs, imgs_pil, )
+        return (imgs_pil, )
