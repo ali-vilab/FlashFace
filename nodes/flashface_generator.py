@@ -22,7 +22,7 @@ class FlashFaceGenerator:
                 "negative": ("CONDITIONING", {}),
                 "reference_images": ("PIL_IMAGE", {}),
                 "vae": ("VAE", {}),
-                "seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
+                "seed": ("INT", {"default": 0, "min": 0, "max": 2147483647}),
                 "sampler": (['ddim', ], ),
                 "steps": ("INT", {"default": 35}),
                 "text_guidance_strength": ("FLOAT", {"default": 7.5, "min": 0.0, "max": 10.0, "step": 0.1}),
@@ -46,7 +46,7 @@ class FlashFaceGenerator:
                  reference_feature_strength, reference_guidance_strength, step_to_launch_face_guidance, face_bbox_x1,
                  face_bbox_y1, face_bbox_x2, face_bbox_y2, num_samples):
 
-        # seed_everything(seed)
+        seed_everything(seed)
 
         face_transforms = Compose(
             [T.ToTensor(),
