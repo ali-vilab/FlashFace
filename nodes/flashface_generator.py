@@ -29,10 +29,10 @@ class FlashFaceGenerator:
                 "reference_feature_strength": ("FLOAT", {"default": 0.9, "min": 0.7, "max": 1.4, "step": 0.05}),
                 "reference_guidance_strength": ("FLOAT", {"default": 2.4, "min": 1.8, "max": 4.0, "step": 0.1}),
                 "step_to_launch_face_guidance": ("INT", {"default": 600, "min": 0, "max": 1000, "step": 50}),
-                "face_bbox_x1": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.1}),
-                "face_bbox_y1": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.1}),
-                "face_bbox_x2": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.1}),
-                "face_bbox_y2": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.1}),
+                "face_bbox_x1": ("FLOAT", {"default": 0.3, "min": 0.0, "max": 1.0, "step": 0.1}),
+                "face_bbox_y1": ("FLOAT", {"default": 0.1, "min": 0.0, "max": 1.0, "step": 0.1}),
+                "face_bbox_x2": ("FLOAT", {"default": 0.6, "min": 0.0, "max": 1.0, "step": 0.1}),
+                "face_bbox_y2": ("FLOAT", {"default": 0.4, "min": 0.0, "max": 1.0, "step": 0.1}),
                 "num_samples": ("INT", {"default": 1}),
 
             }
