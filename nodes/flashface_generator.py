@@ -46,13 +46,6 @@ class FlashFaceGenerator:
                  reference_feature_strength, reference_guidance_strength, step_to_launch_face_guidance, face_bbox_x1,
                  face_bbox_y1, face_bbox_x2, face_bbox_y2, num_samples):
 
-        pil_imgs = []
-        # convert each image to PIL and append to list
-        for img in reference_images:
-            img = img.squeeze(0)
-            img = img.permute(2, 0, 1)
-            pil_image = F.to_pil_image(img)
-            pil_imgs.append(pil_image)
 
         seed_everything(seed)
 
@@ -86,7 +79,7 @@ class FlashFaceGenerator:
         padding_to_square = PadToSquare(224)
         pasted_ref_faces = []
         show_refs = []
-        for ref_img in pil_imgs:
+        for ref_img in reference_images:
             ref_img = ref_img.convert('RGB')
             ref_img = padding_to_square(ref_img)
             to_paste = ref_img
@@ -148,12 +141,12 @@ class FlashFaceGenerator:
         imgs_pil = [Image.fromarray(img) for img in imgs]
         imgs_pil = imgs_pil + show_refs
 
-        # torch_imgs = []
-        # for img in imgs_pil:
-        #     img_tensor = F.to_tensor(img)
-        #     # Ensure the data type is correct
-        #     img_np = img_tensor.permute(1, 2, 0)
-        #
-        #     torch_imgs.append(img_np)
+        # save imgs to file
+        # for i, img in enumerate(imgs):
+        #     img.save(f"sample_{i}.png")
+
+        out = {
+            "samples": z0,
+        }
 
         return (imgs_pil, )
