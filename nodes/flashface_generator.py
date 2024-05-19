@@ -148,12 +148,12 @@ class FlashFaceGenerator:
         imgs_pil = [Image.fromarray(img) for img in imgs]
         imgs_pil = imgs_pil + show_refs
 
-        # save imgs to file
-        # for i, img in enumerate(imgs):
-        #     img.save(f"sample_{i}.png")
+        torch_imgs = []
+        for img in imgs_pil:
+            img_tensor = F.to_tensor(img)
+            # Ensure the data type is correct
+            img_np = img_tensor.permute(1, 2, 0)
 
-        out = {
-            "samples": z0,
-        }
+            torch_imgs.append(img_np)
 
-        return (imgs_pil, )
+        return (torch_imgs, )
