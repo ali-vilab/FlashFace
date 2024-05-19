@@ -13,11 +13,11 @@ NODE_CLASS_MAPPINGS = {
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "FlashFaceGenerator": "F⚡ashF🎭ce Generator",
-    "FlashFaceCLIPTextEncode": "F⚡ashF🎭ce CLIP Text Encode",
-    "FlashFaceLoadModel": "F⚡ashF🎭ce Load Model",
-    "FlashFaceImageToPIL": "F⚡ashF🎭ce Image to PIL",
-    "FlashFacePILToImage": "F⚡ashF🎭ce PIL to Image",
+    "FlashFaceGenerator": "⚡🎭FlashFace Generator",
+    "FlashFaceCLIPTextEncode": "⚡🎭FlashFace CLIP Text Encode",
+    "FlashFaceLoadModel": "⚡🎭FlashFace Load Model",
+    "FlashFaceImageToPIL": "⚡🎭FlashFace Image to PIL",
+    "FlashFacePILToImage": "⚡🎭FlashFace PIL to Image",
 }
 
 WEB_DIRECTORY = "./web"

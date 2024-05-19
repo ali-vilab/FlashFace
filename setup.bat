@@ -1,9 +1,5 @@
 @echo off
 
-cd custom_nodes
-git clone https://github.com/cold-hand/ComfyUI-FlashFace
-
-cd ComfyUI-FlashFace
 pip install -r requirements-comfy.txt
 
 cd ..\..\models
