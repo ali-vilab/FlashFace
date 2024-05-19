@@ -37,7 +37,7 @@ class FlashFaceGenerator:
 
             }
         }
-    RETURN_TYPES = ("PIL_IMAGE", )
+    RETURN_TYPES = ("IMAGE", )
     FUNCTION = "generate"
     CATEGORY = "FlashFace"
 
