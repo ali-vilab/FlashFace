@@ -20,7 +20,7 @@ class FlashFaceGenerator:
                 "model": ("MODEL", {}),
                 "positive": ("CONDITIONING", {}),
                 "negative": ("CONDITIONING", {}),
-                "reference_images": ("PIL_IMAGE", {}),
+                "reference_images": ("IMAGE", {}),
                 "vae": ("VAE", {}),
                 "seed": ("INT", {"default": 0, "min": 0, "max": 2147483647}),
                 "sampler": (['ddim', ], ),
@@ -45,6 +45,14 @@ class FlashFaceGenerator:
     def generate(self, model, positive, negative, reference_images, vae, seed, sampler, steps, text_guidance_strength,
                  reference_feature_strength, reference_guidance_strength, step_to_launch_face_guidance, face_bbox_x1,
                  face_bbox_y1, face_bbox_x2, face_bbox_y2, num_samples):
+
+        pil_imgs = []
+        # convert each image to PIL and append to list
+        for img in reference_images:
+            img = img.squeeze(0)
+            img = img.permute(2, 0, 1)
+            pil_image = F.to_pil_image(img)
+            pil_imgs.append(pil_image)
 
         seed_everything(seed)
 
@@ -78,7 +86,7 @@ class FlashFaceGenerator:
         padding_to_square = PadToSquare(224)
         pasted_ref_faces = []
         show_refs = []
-        for ref_img in reference_images:
+        for ref_img in pil_imgs:
             ref_img = ref_img.convert('RGB')
             ref_img = padding_to_square(ref_img)
             to_paste = ref_img
