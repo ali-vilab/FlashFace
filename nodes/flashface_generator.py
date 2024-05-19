@@ -37,7 +37,7 @@ class FlashFaceGenerator:
 
             }
         }
-    RETURN_TYPES = ("IMAGE", )
+    RETURN_TYPES = ("PIL_IMAGE", )
     FUNCTION = "generate"
     CATEGORY = "FlashFace"
 
@@ -148,12 +148,12 @@ class FlashFaceGenerator:
         imgs_pil = [Image.fromarray(img) for img in imgs]
         imgs_pil = imgs_pil + show_refs
 
-        torch_imgs = []
-        for img in imgs_pil:
-            img_tensor = F.to_tensor(img)
-            # Ensure the data type is correct
-            img_np = img_tensor.permute(1, 2, 0)
+        # torch_imgs = []
+        # for img in imgs_pil:
+        #     img_tensor = F.to_tensor(img)
+        #     # Ensure the data type is correct
+        #     img_np = img_tensor.permute(1, 2, 0)
+        #
+        #     torch_imgs.append(img_np)
 
-            torch_imgs.append(img_np)
-
-        return (torch_imgs, )
+        return (imgs_pil, )
