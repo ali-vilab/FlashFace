@@ -20,7 +20,11 @@ class FlashFaceGenerator:
                 "model": ("MODEL", {}),
                 "positive": ("CONDITIONING", {}),
                 "negative": ("CONDITIONING", {}),
-                "reference_images": ("PIL_IMAGE", {}),
+                # "reference_images": ("PIL_IMAGE", {}),
+                "image1": ("PIL_IMAGE", {}),
+                "image2": ("PIL_IMAGE", {}),
+                "image3": ("PIL_IMAGE", {}),
+                "image4": ("PIL_IMAGE", {}),
                 "vae": ("VAE", {}),
                 "seed": ("INT", {"default": 0, "min": 0, "max": 2147483647}),
                 "sampler": (['ddim', ], ),
@@ -42,11 +46,11 @@ class FlashFaceGenerator:
     CATEGORY = "FlashFace"
 
 
-    def generate(self, model, positive, negative, reference_images, vae, seed, sampler, steps, text_guidance_strength,
+    def generate(self, model, positive, negative, image1, image2, image3, image4, vae, seed, sampler, steps, text_guidance_strength,
                  reference_feature_strength, reference_guidance_strength, step_to_launch_face_guidance, face_bbox_x1,
                  face_bbox_y1, face_bbox_x2, face_bbox_y2, num_samples):
 
-
+        reference_images = [image1, image2, image3, image4]
         seed_everything(seed)
 
         face_transforms = Compose(
