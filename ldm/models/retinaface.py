@@ -382,7 +382,7 @@ def retinaface(pretrained=False, device='cpu', backbone='resnet50', ckpt_path=No
             model = RetinaFace(backbone=backbone)
 
         if(ckpt_path is None):
-            ckpt_path = Path(__file__).parents[2] / "cache" / f"retinaface_{backbone}.pth"
+            ckpt_path = Path(__file__).parents[4] / "models" / "facedetection" / f"retinaface_{backbone}.pth"
 
         model.load_state_dict(torch.load(ckpt_path, map_location=device))
     else:

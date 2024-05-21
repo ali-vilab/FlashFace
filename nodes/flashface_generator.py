@@ -1,16 +1,24 @@
+import copy
+import random
+
 import numpy as np
 import torch
 import torch.cuda.amp as amp
 import torchvision.transforms as T
 import torchvision.transforms.functional as F
 from PIL import ImageOps, ImageSequence
-from PIL import Image
+from PIL import Image, ImageDraw
 
 from ..flashface.all_finetune.config import cfg
-from ..flashface.all_finetune.utils import Compose, PadToSquare, seed_everything
+from ..flashface.all_finetune.utils import Compose, PadToSquare, seed_everything, get_padding
+from ..ldm.models.retinaface import crop_face, retinaface
 import comfy.samplers
 
+padding_to_square = PadToSquare(224)
 
+retinaface_transforms = T.Compose([PadToSquare(size=640), T.ToTensor()])
+
+retinaface = retinaface(pretrained=True, device='cuda').eval().requires_grad_(False)
 
 class FlashFaceGenerator:
     @classmethod
@@ -50,8 +58,25 @@ class FlashFaceGenerator:
                  reference_feature_strength, reference_guidance_strength, step_to_launch_face_guidance, face_bbox_x1,
                  face_bbox_y1, face_bbox_x2, face_bbox_y2, num_samples):
 
-        reference_images = [image1, image2, image3, image4]
+        reference_faces = [image1[0], image2[0], image3[0], image4[0]]
         seed_everything(seed)
+
+        reference_faces = detect_face(reference_faces)
+
+        # for i, ref_img in enumerate(reference_faces):
+        #     ref_img.save(f'./{i + 1}.png')
+        print(f'detected {len(reference_faces)} faces')
+        if len(reference_faces) == 0:
+            raise (
+                'No face detected in the reference images, please upload images with clear face'
+            )
+
+        if len(reference_faces) < 4:
+            expand_reference_faces = copy.deepcopy(reference_faces)
+            while len(expand_reference_faces) < 4:
+                # random select from ref_imgs
+                expand_reference_faces.append(random.choice(reference_faces))
+            reference_faces = expand_reference_faces
 
         face_transforms = Compose(
             [T.ToTensor(),
@@ -83,7 +108,7 @@ class FlashFaceGenerator:
         padding_to_square = PadToSquare(224)
         pasted_ref_faces = []
         show_refs = []
-        for ref_img in reference_images:
+        for ref_img in reference_faces:
             ref_img = ref_img.convert('RGB')
             ref_img = padding_to_square(ref_img)
             to_paste = ref_img
@@ -154,3 +179,53 @@ class FlashFaceGenerator:
         }
 
         return (imgs_pil, )
+
+def detect_face(imgs=None):
+
+    # read images
+    pil_imgs = imgs
+    b = len(pil_imgs)
+    vis_pil_imgs = copy.deepcopy(pil_imgs)
+
+    # detection
+    imgs = torch.stack([retinaface_transforms(u) for u in pil_imgs]).to('cuda')
+    boxes, kpts = retinaface.detect(imgs, min_thr=0.6)
+
+    # undo padding and scaling
+    face_imgs = []
+
+    for i in range(b):
+        # params
+        scale = 640 / max(pil_imgs[i].size)
+        left, top, _, _ = get_padding(round(scale * pil_imgs[i].width),
+                                      round(scale * pil_imgs[i].height), 640)
+
+        # undo padding
+        boxes[i][:, [0, 2]] -= left
+        boxes[i][:, [1, 3]] -= top
+        kpts[i][:, :, 0] -= left
+        kpts[i][:, :, 1] -= top
+
+        # undo scaling
+        boxes[i][:, :4] /= scale
+        kpts[i][:, :, :2] /= scale
+
+        # crop faces
+        crops = crop_face(pil_imgs[i], boxes[i], kpts[i])
+        if len(crops) != 1:
+            raise (
+                f'Find {len(crops)} faces in the image {i+1}, please ensure there is only one face in each image'
+            )
+
+        face_imgs += crops
+
+        # draw boxes on the pil image
+        draw = ImageDraw.Draw(vis_pil_imgs[i])
+        for box in boxes[i]:
+            box = box[:4].tolist()
+            box = [int(x) for x in box]
+            draw.rectangle(box, outline='red', width=4)
+
+    face_imgs = face_imgs
+
+    return face_imgs
