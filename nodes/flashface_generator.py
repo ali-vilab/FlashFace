@@ -45,7 +45,7 @@ class FlashFaceGenerator:
 
             }
         }
-    RETURN_TYPES = ("PIL_IMAGE", )
+    RETURN_TYPES = ("IMAGE", )
     FUNCTION = "generate"
     CATEGORY = "FlashFace"
 
@@ -170,58 +170,12 @@ class FlashFaceGenerator:
         # for i, img in enumerate(imgs):
         #     img.save(f"sample_{i}.png")
 
-        out = {
-            "samples": z0,
-        }
+        torch_imgs = []
+        for img in imgs_pil:
+            img_tensor = F.to_tensor(img)
+            # Ensure the data type is correct
+            img_np = img_tensor.permute(1, 2, 0)
 
-        return (imgs_pil, )
+            torch_imgs.append(img_np)
 
-def detect_face(imgs=None):
-
-    # read images
-    pil_imgs = imgs
-    b = len(pil_imgs)
-    vis_pil_imgs = copy.deepcopy(pil_imgs)
-
-    # detection
-    imgs = torch.stack([retinaface_transforms(u) for u in pil_imgs]).to('cuda')
-    boxes, kpts = retinaface.detect(imgs, min_thr=0.6)
-
-    # undo padding and scaling
-    face_imgs = []
-
-    for i in range(b):
-        # params
-        scale = 640 / max(pil_imgs[i].size)
-        left, top, _, _ = get_padding(round(scale * pil_imgs[i].width),
-                                      round(scale * pil_imgs[i].height), 640)
-
-        # undo padding
-        boxes[i][:, [0, 2]] -= left
-        boxes[i][:, [1, 3]] -= top
-        kpts[i][:, :, 0] -= left
-        kpts[i][:, :, 1] -= top
-
-        # undo scaling
-        boxes[i][:, :4] /= scale
-        kpts[i][:, :, :2] /= scale
-
-        # crop faces
-        crops = crop_face(pil_imgs[i], boxes[i], kpts[i])
-        if len(crops) != 1:
-            raise (
-                f'Find {len(crops)} faces in the image {i+1}, please ensure there is only one face in each image'
-            )
-
-        face_imgs += crops
-
-        # draw boxes on the pil image
-        draw = ImageDraw.Draw(vis_pil_imgs[i])
-        for box in boxes[i]:
-            box = box[:4].tolist()
-            box = [int(x) for x in box]
-            draw.rectangle(box, outline='red', width=4)
-
-    face_imgs = face_imgs
-
-    return face_imgs
+        return (torch_imgs, )

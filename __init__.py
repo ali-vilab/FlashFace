@@ -1,16 +1,12 @@
 from .nodes.flashface_generator import FlashFaceGenerator
 from .nodes.flashface_cliptextencode import FlashFaceCLIPTextEncode
 from .nodes.flashface_loadmodel import FlashFaceLoadModel
-from .nodes.flashface_imagetopil import FlashFaceImageToPIL
-from .nodes.flashface_piltoimage import FlashFacePILToImage
 from .nodes.flashface_detectface import FlashFaceDetectFace
 
 NODE_CLASS_MAPPINGS = {
     "FlashFaceGenerator": FlashFaceGenerator,
     "FlashFaceCLIPTextEncode": FlashFaceCLIPTextEncode,
     "FlashFaceLoadModel": FlashFaceLoadModel,
-    "FlashFaceImageToPIL": FlashFaceImageToPIL,
-    "FlashFacePILToImage": FlashFacePILToImage,
     "FlashFaceDetectFace": FlashFaceDetectFace,
 }
 
@@ -18,8 +14,6 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "FlashFaceGenerator": "⚡🎭FlashFace Generator",
     "FlashFaceCLIPTextEncode": "⚡🎭FlashFace CLIP Text Encode",
     "FlashFaceLoadModel": "⚡🎭FlashFace Load Model",
-    "FlashFaceImageToPIL": "⚡🎭FlashFace Image to PIL",
-    "FlashFacePILToImage": "⚡🎭FlashFace PIL to Image",
     "FlashFaceDetectFace": "⚡🎭FlashFace Detect Face",
 
 }
