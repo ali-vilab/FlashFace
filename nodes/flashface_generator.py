@@ -28,19 +28,15 @@ class FlashFaceGenerator:
                 "model": ("MODEL", {}),
                 "positive": ("CONDITIONING", {}),
                 "negative": ("CONDITIONING", {}),
-                # "reference_images": ("PIL_IMAGE", {}),
-                "image1": ("PIL_IMAGE", {}),
-                "image2": ("PIL_IMAGE", {}),
-                "image3": ("PIL_IMAGE", {}),
-                "image4": ("PIL_IMAGE", {}),
+                "reference_faces": ("PIL_IMAGE", {}),
                 "vae": ("VAE", {}),
                 "seed": ("INT", {"default": 0, "min": 0, "max": 2147483647}),
                 "sampler": (['ddim', ], ),
                 "steps": ("INT", {"default": 35}),
                 "text_guidance_strength": ("FLOAT", {"default": 7.5, "min": 0.0, "max": 10.0, "step": 0.1}),
-                "reference_feature_strength": ("FLOAT", {"default": 0.9, "min": 0.7, "max": 1.4, "step": 0.05}),
-                "reference_guidance_strength": ("FLOAT", {"default": 2.4, "min": 1.8, "max": 4.0, "step": 0.1}),
-                "step_to_launch_face_guidance": ("INT", {"default": 600, "min": 0, "max": 1000, "step": 50}),
+                "reference_feature_strength": ("FLOAT", {"default": 1.2, "min": 0.7, "max": 1.4, "step": 0.05}),
+                "reference_guidance_strength": ("FLOAT", {"default": 3.4, "min": 1.8, "max": 4.0, "step": 0.1}),
+                "step_to_launch_face_guidance": ("INT", {"default": 750, "min": 0, "max": 1000, "step": 50}),
                 "face_bbox_x1": ("FLOAT", {"default": 0.3, "min": 0.0, "max": 1.0, "step": 0.1}),
                 "face_bbox_y1": ("FLOAT", {"default": 0.1, "min": 0.0, "max": 1.0, "step": 0.1}),
                 "face_bbox_x2": ("FLOAT", {"default": 0.6, "min": 0.0, "max": 1.0, "step": 0.1}),
@@ -54,14 +50,14 @@ class FlashFaceGenerator:
     CATEGORY = "FlashFace"
 
 
-    def generate(self, model, positive, negative, image1, image2, image3, image4, vae, seed, sampler, steps, text_guidance_strength,
+    def generate(self, model, positive, negative, reference_faces, vae, seed, sampler, steps, text_guidance_strength,
                  reference_feature_strength, reference_guidance_strength, step_to_launch_face_guidance, face_bbox_x1,
                  face_bbox_y1, face_bbox_x2, face_bbox_y2, num_samples):
 
-        reference_faces = [image1[0], image2[0], image3[0], image4[0]]
+        # reference_faces = [image1[0], image2[0], image3[0], image4[0]]
         seed_everything(seed)
 
-        reference_faces = detect_face(reference_faces)
+        # reference_faces = detect_face(reference_faces)
 
         # for i, ref_img in enumerate(reference_faces):
         #     ref_img.save(f'./{i + 1}.png')

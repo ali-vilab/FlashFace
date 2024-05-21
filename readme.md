@@ -9,7 +9,7 @@ ComfyUI implementation of FlashFace: Human Image Personalization with High-fidel
 4. cd into the `ComfyUI-FlashFace` directory and run setup.sh or setup.bat depending on your OS.
 5. Restart ComfyUI and you should see the FlashFace node in the node list.
 6. Install the ImpactPack from the ComfyUI Manager.
-7. Install Facerestore CF (Code Former) from the ComfyUI Manager. 
+7. Install ComfyUI_Ib_CustomNodes from the ComfyUI Manager.
 8. Load the provided example-workflow.json file at the root of this repo to see how the nodes are used.
 
 ## Change Log
