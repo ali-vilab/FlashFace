@@ -32,16 +32,26 @@ class FlashFaceDetectFace:
     CATEGORY = "FlashFace"
 
     def detect_face(self, **kwargs):
+
+
         imgs = []
 
         for k, v in kwargs.items():
             imgs.append(v)
 
+        pil_imgs = []
+        # convert each image to PIL and append to list
+        for img in imgs:
+            img = img.squeeze(0)
+            img = img.permute(2, 0, 1)
+            pil_image = F.to_pil_image(img)
+            pil_imgs.append(pil_image)
+
         # flatten the list
-        imgs = [item for sublist in imgs for item in sublist]
+        # pil_imgs = [item for sublist in imgs for item in sublist]
 
         # read images
-        pil_imgs = imgs
+        # pil_imgs = imgs
         b = len(pil_imgs)
         vis_pil_imgs = copy.deepcopy(pil_imgs)
 

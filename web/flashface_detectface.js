@@ -8,7 +8,7 @@ app.registerExtension({
             const onNodeCreated = nodeType.prototype.onNodeCreated
             nodeType.prototype.onNodeCreated = function () {
                 const r = onNodeCreated ? onNodeCreated.apply(this, arguments) : undefined
-                this.addInput(`image1`, 'PIL_IMAGE')
+                this.addInput(`image1`, 'IMAGE')
                 return r
             }
             // add onConnectionsChange for dynamic input
@@ -22,7 +22,7 @@ app.registerExtension({
                 const r = onConnectionsChange
                     ? onConnectionsChange.apply(this, arguments)
                     : undefined
-                dynamic_connection(this, index, connected, 'image', 'PIL_IMAGE')
+                dynamic_connection(this, index, connected, 'image', 'IMAGE')
             }
 
             const dynamic_connection = (
