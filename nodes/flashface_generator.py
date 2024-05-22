@@ -67,13 +67,6 @@ class FlashFaceGenerator:
                 'No face detected in the reference images, please upload images with clear face'
             )
 
-        if len(reference_faces) < 4:
-            expand_reference_faces = copy.deepcopy(reference_faces)
-            while len(expand_reference_faces) < 4:
-                # random select from ref_imgs
-                expand_reference_faces.append(random.choice(reference_faces))
-            reference_faces = expand_reference_faces
-
         face_transforms = Compose(
             [T.ToTensor(),
              T.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])])

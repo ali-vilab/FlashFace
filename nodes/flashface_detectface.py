@@ -32,8 +32,6 @@ class FlashFaceDetectFace:
     CATEGORY = "FlashFace"
 
     def detect_face(self, **kwargs):
-
-
         imgs = []
 
         for k, v in kwargs.items():
