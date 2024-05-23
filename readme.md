@@ -36,6 +36,7 @@ Example Reference Image:
 Example Reference Image: 
 <br /><img src="examples/comfyui/Ada/source.jpeg" width=25% height=auto>
 <br />Ada Lovelace
+* Since Ada only has drawings of her and no photos I created these images by starting with a painting and a sketch of her to generate the third picture,then used taht image as the third image to generate another random image, and then added that one to the inputs, once I had 4 I then ran the original prompt again, I repeated this process until I had 16 reference images and 4 samples.
 <table>
   <tr>
     <td>1 Reference Image</td>
