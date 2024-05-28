@@ -20,35 +20,16 @@ Example Reference Image:
 <br />Nicki Minaj
 <table>
   <tr>
-    <td>1 Reference Image</td>
-     <td>4 Reference Images</td>
-     <td>8 Reference Images</td>
-     <td>16 Reference Images</td>
+    <td>Output with 1 Reference Image</td>
+     <td>Output with 4 Reference Images</td>
+     <td>Output with 8 Reference Images</td>
+     <td>Output with 16 Reference Images</td>
   </tr>
   <tr>
     <td><img src="examples/comfyui/Nicki/1.png" width=100% height=auto></td>
     <td><img src="examples/comfyui/Nicki/4.png" width=100% height=auto></td>
     <td><img src="examples/comfyui/Nicki/8.png" width=100% height=auto></td>
     <td><img src="examples/comfyui/Nicki/16.png" width=100% height=auto></td>
-  </tr>
-</table>
-
-Example Reference Image: 
-<br /><img src="examples/comfyui/Ada/source.jpeg" width=25% height=auto>
-<br />Ada Lovelace
-* Since Ada only has drawings of her and no photos I created these images by starting with a painting and a sketch of her to generate the third picture,then used taht image as the third image to generate another random image, and then added that one to the inputs, once I had 4 I then ran the original prompt again, I repeated this process until I had 16 reference images and 4 samples.
-<table>
-  <tr>
-    <td>1 Reference Image</td>
-     <td>4 Reference Images</td>
-     <td>8 Reference Images</td>
-     <td>16 Reference Images</td>
-  </tr>
-  <tr>
-    <td><img src="examples/comfyui/Ada/1.png" width=100% height=auto></td>
-    <td><img src="examples/comfyui/Ada/4.png" width=100% height=auto></td>
-    <td><img src="examples/comfyui/Ada/8.png" width=100% height=auto></td>
-    <td><img src="examples/comfyui/Ada/16.png" width=100% height=auto></td>
   </tr>
 </table>
 
