@@ -8,14 +8,15 @@
 ## FlashFace: Human Image Personalization with High-fidelity Identity Preservation
 </div> 
 
-
+###  [🔥ComfyUI-FlashFace🔥](https://github.com/cold-hand/ComfyUI-FlashFace)（Thanks to [Cold-Hand](https://github.com/cold-hand)'s excellent work, they have discovered that ``adding more reference faces(instead default 4 faces in this repo) can further enhance the FlashFace``. This implementation is still in the process of rapid iteration and feature addition.） 
  
-
 ### 🔥 [**Project Page**](https://jshilong.github.io/flashface-page/)  🔥
 
 ###  [🔥Unofficial Online Demo🔥](https://replicate.com/zsxkib/flash-face)（please use the following hyper-parameters instead of the default hyper-parameters of this demo to obtain stable ID Fidelity） 
 
-### Recommended hyper-parameters to obtain stable ID Fidelity
+
+
+#### Recommended hyper-parameters to obtain stable ID Fidelity
 ```
 # Please include the age word in the prompt, e.g. young woman/man
 # Otherwise, FlashFace tends to produce middle-aged faces, which tend to be fatter.
@@ -36,7 +37,7 @@ Step Index to Launch Ref Guidance: 750
 
 </p>
 
-### Recommended hyper-parameters to change the age
+#### Recommended hyper-parameters to change the age
 ```
 # Please include age words in the prompt, e.g. baby girl/boy,  An very old woman/man
 
@@ -55,6 +56,7 @@ Step Index to Launch Ref Guidance: 750
 ```
 <p align="center">
 <img src="https://github.com/jshilong/flashface-page/blob/main/static/githubfigs/output2-min.png" width="80%"> <br>
+<img src="https://github.com/jshilong/flashface-page/blob/main/static/githubfigs/output3-min.png" width="80%"> <br>
 
 </p>
 
@@ -64,20 +66,11 @@ Step Index to Launch Ref Guidance: 750
 ###  For optimal results, especially for Asian faces, it's strongly advised to read through this [tutorial](./docs/en.md) before diving in. Skipping this step may lead to undesirable or unanticipated outcomes.  
 
 
-## Feature
-
-1. Zero-shot human image customization within seconds with one or several reference faces.
-2. Strong identity preservation ability, even for non-celebrities
-3. Strong language prompts following ability, even changing the age or gender of the person.
-4. Flexible strength adjustment for identity image control and language prompt control.
-
 ## Updates
 
-<p align="center">
-<img src="https://github.com/jshilong/flashface-page/blob/main/static/githubfigs/flashface.gif" width="100%"> <br>
 
 
-</p>
+- \[May 30\] [🔥ComfyUI-FlashFace🔥](https://github.com/cold-hand/ComfyUI-FlashFace). Thanks to [Cold-Hand](https://github.com/cold-hand)'s excellent work, they find that ``adding more reference faces(instead default 4 faces in this repo) can further enhance the FlashFace``. This implementation is still in the process of rapid iteration and feature addition.
 
 - \[May 7\] 🔥🔥🔥 An [Online Demo](https://replicate.com/zsxkib/flash-face) for **FlashFace-SD1.5** has been graciously provided by [Sakib Ahamed](https://github.com/zsxkib). To achieve optimal results, it's recommended to thoroughly go through this [tutorial](./docs/en.md) / [中文教程](./docs/zh_cn.md) before jumping in.
 
@@ -89,6 +82,20 @@ Step Index to Launch Ref Guidance: 750
 This version represents a clear advancement over our paper, as it has been trained for an extended duration. We also involve new guidance techniques in the inference process. Notably, this enhanced checkpoint demonstrates remarkable progress in terms of lighting and shadow effects. It show strong identity preservation ability even for non-celebrities. Please refer to the following images for more details. For the prompt and inference parameters, please refer to [**notebook demo**](flashface/all_finetune/inference.ipynb). If you are not satisfied with the generated images, you can submit your case in the issue so that we can help you improve it. Stay tuned for more versions!
 
 我们开源了 FlashFace-SD1.5 的 inference 代码以及全微调的模型权重. 这个权重相比我们论文中权重训练了更长的时间，如下面图片，展现出了更真实的光影效果与人物细节,即使针对非名人它也展现出了极强的保 ID 能力. 下面图片使用的 prompt 以及 inference 参数细节 可以参照 [**notebook demo**](flashface/all_finetune/inference.ipynb). 如果您对生成图片不满意，可以在 issue 中提交您的 case,以便我们帮助您提升它. 其他版本权重敬请期待！
+
+
+## Feature
+
+<p align="center">
+<img src="https://github.com/jshilong/flashface-page/blob/main/static/githubfigs/flashface.gif" width="100%"> <br>
+
+</p>
+
+1. Zero-shot human image customization within seconds with one or several reference faces.
+2. Strong identity preservation ability, even for non-celebrities
+3. Strong language prompts following ability, even changing the age or gender of the person.
+4. Flexible strength adjustment for identity image control and language prompt control.
+
 
 <p align="center">
 <img src="https://jshilong.github.io/flashface-page/static/githubfigs/genrate_afanda.png" width="120%"> <br>
