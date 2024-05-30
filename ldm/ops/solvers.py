@@ -3,7 +3,7 @@ from tqdm.auto import trange
 
 __all__ = ['sample_ddim', 'sample_euler']
 
-from comfy.k_diffusion.sampling import sample_euler as comfy_sample_euler
+from comfy.k_diffusion.sampling import sample_euler_ancestral as comfy_sample_euler
 
 
 @torch.no_grad()
