@@ -54,4 +54,4 @@ If the generated image does not meet your expectations, especially in terms of I
    face_guidence = 3
    step_to_launch_face_guidence = 800
    ```
-   This adjustment can significantly enhance the representation of Asian faces.
+   This adjustment can significantly enhance the representation of Asian faces. However, sometimes if these three values are too high, it will cause the face to appear textured or even artifacts. If there is a similar situation, please adjust ``lamda_feat`` and ``face_guidence`` to smaller values.

@@ -51,3 +51,4 @@ step_to_launch_face_guidence = 800
     face_guidence = 3
     step_to_launch_face_guidence = 800
     ```
+    但是有时这三个值过大会导致脸部出现贴图感甚至 artifacts, 如有类似情况请对应调小 ``lamda_feat`` 与 ``face_guidence``

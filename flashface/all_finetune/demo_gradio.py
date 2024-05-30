@@ -144,14 +144,14 @@ def encode_text(m, x):
 def generate(
     pos_prompt,
     neg_prompt,
-    steps=35,
+    steps=30,
     face_bbox=[0.3, 0.1, 0.6, 0.4],
-    lamda_feat=0.9,
-    face_guidence=2.4,
+    lamda_feat=1.2,
+    face_guidence=3.2,
     num_sample=1,
     text_control_scale=7.5,
     seed=-1,
-    step_to_launch_face_guidence=600,
+    step_to_launch_face_guidence=750,
     reference_face_1=None,
     reference_face_2=None,
     reference_face_3=None,
@@ -384,26 +384,26 @@ with block:
 
         with gr.Column():
             gr.Markdown(
-                '使用更大的 ``Reference Feature Strength``，  ``Reference Guidance Strength`` 和 ``Step Index to Launch Ref Guidance`` 可以让生成人脸图像更加忠实于参考图像中的人脸ID，但也可能导致生成的图像中人脸多样性降低. <br><br> **一般情况,固定其他参数为默认，仅仅调大``Reference Feature Strength``一个参数到 1 附近就足够**， 除非你想保留非常多面部细节'
+                '使用更大的 ``Reference Feature Strength``，  ``Reference Guidance Strength`` 和 ``Step Index to Launch Ref Guidance`` 可以让生成人脸图像更加忠实于参考图像中的人脸ID，但也可能导致生成的图像中人脸多样性降低. <br><br> **一般情况,固定其他参数为默认，仅仅调大``Reference Feature Strength``一个参数就足够**， 除非你想保留非常多面部细节'
             )
             gr.Markdown(
-                'Bigger ``Reference Feature Strength``，  ``Reference Guidance Strength`` and ``Step Index to Launch Ref Guidance`` will lead to more fidelity to the face identity in the reference images, but may also cause less face diversity in the generated images. <br><br> **Generally, keep other parameters at default, and just increase ``Reference Feature Strength`` to around 1 is enough**, unless you want to retain a lot of facial details'
+                'Bigger ``Reference Feature Strength``，  ``Reference Guidance Strength`` and ``Step Index to Launch Ref Guidance`` will lead to more fidelity to the face identity in the reference images, but may also cause less face diversity in the generated images. <br><br> **Generally, keep other parameters at default, and just increase ``Reference Feature Strength`` is enough**, unless you want to retain a lot of facial details'
             )
             similarity = gr.Slider(label='Reference Feature Strength',
                                    minimum=0.7,
                                    maximum=1.4,
-                                   value=0.9,
+                                   value=1.2,
                                    step=0.05)
             classifier = gr.Slider(label='Reference Guidance Strength',
                                    minimum=1.8,
                                    maximum=4,
-                                   value=2.4,
+                                   value=3.2,
                                    step=0.1)
             step_to_launch_face_guidence = gr.Slider(
                 label='Step Index to Launch Ref Guidance',
                 minimum=0,
                 maximum=1000,
-                value=600,
+                value=750,
                 step=50)
 
     with gr.Row():
@@ -418,37 +418,24 @@ with block:
         gr.Examples(examples=[
             [
                 'A handsome young man with long brown hair is sitting in the desert',
-                'examples/avatar.png', None, None, None, 0.9, 2.5, 700, 2, 0,
-                50, '[0.,0.,0.,0.]', 7.5, ''
+                'examples/avatar.png', None, None, None, 1, 2.5, 700, 2, 0,
+                25, '[0.3, 0.1, 0.6, 0.4]', 7.5, ''
             ],
-            [
-                'Full body photo of a beautiful young women sitting in the office, medium length wavy hair, wearinig red bow hairpin on the top of head',
-                'examples/snow_white.png', None, None, None, 1, 2, 600, 2, 0,
-                50, '[0.,0.,0.,0.]', 7.5, ''
-            ],
-            [
-                'A handsome, attractive, sleek young man sitting on the beach, wearing black long trench coat, man bun hair,  heavily clouded, sunset, sea in the background',
-                'examples/eren_jaeger.png', None, None, None, 0.9, 2, 600, 2,
-                0, 50, '[0.,0.,0.,0.]', 7.5, 'beard'
-            ],
+ 
             [
                 'An handsome young man, with cowboy hat, long hair, full body, standing in the forest, sunset',
                 'examples/man_face/1.png', 'examples/man_face/2.png',
+                'examples/man_face/3.png', 'examples/man_face/4.png', 1.2, 3.2,
+                750, 2, 0, 25, '[0.3, 0.1, 0.6, 0.4]', 7.5, 'glasses, beard'
+            ],
+            
+            [
+                'A very old man, with short wavy hair',
+                'examples/man_face/1.png', 'examples/man_face/2.png',
                 'examples/man_face/3.png', 'examples/man_face/4.png', 0.9, 2,
-                600, 2, 0, 50, '[0.,0.,0.,0.]', 7.5, ''
+                750, 2, 0, 25, '[0.3, 0.1, 0.6, 0.4]', 7.5, ''
             ],
-            [
-                'A beautiful young woman with short curly hair in the garden holding a flower',
-                'examples/woman_face/1.png', 'examples/woman_face/2.png',
-                'examples/woman_face/3.png', 'examples/woman_face/4.png', 1,
-                2.3, 600, 2, 0, 50, '[0.,0.,0.,0.]', 7.5, ''
-            ],
-            [
-                'A beautiful young woman stands in the street,  wearing earing and white skirt and  hat, thin body, sunny day',
-                'examples/details_face/1.jpeg', 'examples/details_face/2.jpeg',
-                'examples/details_face/3.jpeg', 'examples/details_face/4.jpeg',
-                1.3, 3.2, 800, 2, 0, 50, ' [0.1, 0.1, 0.5, 0.5]', 8, 'Bangs'
-            ],
+
         ],
                     inputs=[
                         pos_prompt,
