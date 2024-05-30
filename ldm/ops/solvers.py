@@ -35,9 +35,9 @@ def sample_euler(noise, model, sigmas, show_progress=True):
     return x
 
 @torch.no_grad()
-def sample_euler(model, x, sigmas, show_progress= True, s_churn=0., s_tmin=0., s_tmax=float('inf'), s_noise=1.):
+def sample_euler(noise, model, sigmas, show_progress= True, s_churn=0., s_tmin=0., s_tmax=float('inf'), s_noise=1.):
     """Implements Algorithm 2 (Euler steps) from Karras et al. (2022)."""
-    s_in = x.new_ones([x.shape[0]])
+    s_in = noise.new_ones([noise.shape[0]])
     for i in trange(len(sigmas) - 1, disable=not show_progress):
         gamma = min(s_churn / (len(sigmas) - 1), 2 ** 0.5 - 1) if s_tmin <= sigmas[i] <= s_tmax else 0.
         eps = torch.randn_like(x) * s_noise
