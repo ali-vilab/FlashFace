@@ -31,7 +31,7 @@ class FlashFaceGenerator:
                 "reference_faces": ("PIL_IMAGE", {}),
                 "vae": ("VAE", {}),
                 "seed": ("INT", {"default": 0, "min": 0, "max": 2147483647}),
-                "sampler": (['ddim', ], ),
+                "sampler": (['ddim', 'euler',], ),
                 "steps": ("INT", {"default": 35}),
                 "text_guidance_strength": ("FLOAT", {"default": 7.5, "min": 0.0, "max": 10.0, "step": 0.1}),
                 "reference_feature_strength": ("FLOAT", {"default": 1.2, "min": 0.7, "max": 1.4, "step": 0.05}),
