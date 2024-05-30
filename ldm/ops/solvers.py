@@ -25,6 +25,6 @@ def sample_ddim(noise, model, sigmas, eta=0., show_progress=True):
 
 @torch.no_grad()
 def sample_euler(noise, model, sigmas, show_progress=True):
-    noise = comfy_sample_euler(model, noise, sigmas)
+    noise = comfy_sample_euler(model, noise, sigmas, eta=0)
 
     return noise
