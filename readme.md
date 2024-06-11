@@ -166,12 +166,10 @@ The developers do not assume any responsibility for potential misuse by users.
 If you find FlashFace useful for your your research and applications, please cite using this BibTeX:
 
 ```bibtex
-@misc{zhang2024flashface,
-      title={FlashFace: Human Image Personalization with High-fidelity Identity Preservation},
-      author={Shilong Zhang and Lianghua Huang and Xi Chen and Yifei Zhang and Zhi-Fan Wu and Yutong Feng and Wei Wang and Yujun Shen and Yu Liu and Ping Luo},
-      year={2024},
-      eprint={2403.17008},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
+@article{zhang2024flashface,
+  title={FlashFace: Human Image Personalization with High-fidelity Identity Preservation},
+  author={Zhang, Shilong and Huang, Lianghua and Chen, Xi and Zhang, Yifei and Wu, Zhi-Fan and Feng, Yutong and Wang, Wei and Shen, Yujun and Liu, Yu and Luo, Ping},
+  journal={arXiv preprint arXiv:2403.17008},
+  year={2024}
 }
 ```
