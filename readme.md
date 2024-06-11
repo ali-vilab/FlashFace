@@ -6,11 +6,12 @@
 <div align="center">
 
 ## FlashFace: Human Image Personalization with High-fidelity Identity Preservation
+###   [**Paper**](https://arxiv.org/abs/2403.17008)  & [**Project Page**](https://jshilong.github.io/flashface-page/)  
 </div> 
 
 ###  [🔥ComfyUI-FlashFace🔥](https://github.com/cold-hand/ComfyUI-FlashFace)（Thanks to [Cold-Hand](https://github.com/cold-hand)'s excellent work, they have discovered that ``adding more reference faces(instead default 4 faces in this repo) can further enhance the FlashFace``. This implementation is still in the process of rapid iteration and feature addition.） 
  
-### 🔥 [**Project Page**](https://jshilong.github.io/flashface-page/)  🔥
+
 
 ###  [🔥Unofficial Online Demo🔥](https://replicate.com/zsxkib/flash-face)（please use the following hyper-parameters instead of the default hyper-parameters of this demo to obtain stable ID Fidelity） 
 
