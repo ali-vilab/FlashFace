@@ -211,7 +211,7 @@ def generate(
         int(normalized_bbox[2] * W),
         int(normalized_bbox[3] * H)
     ]
-    max_size = max(face_bbox[2] - face_bbox[1], face_bbox[3] - face_bbox[1])
+    max_size = max(face_bbox[2] - face_bbox[0], face_bbox[3] - face_bbox[1])
     empty_mask = torch.zeros((H, W))
 
     empty_mask[face_bbox[1]:face_bbox[1] + max_size,
